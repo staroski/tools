@@ -16,7 +16,7 @@ import java.io.InputStream;
  * 
  * @author Ricardo Artur Staroski
  */
-public final class Command {
+final class Command {
 
 	// classe utilizada internamente para armazenar as saídas padrão e de erro do processo
 	private static class EnchainedListener implements CommandListener {
@@ -60,9 +60,10 @@ public final class Command {
 		}
 	};
 
-	private final String[] command;
 	private final EnchainedListener outputListener;
 	private final EnchainedListener errorListener;
+
+	private String[] command;
 
 	/**
 	 * Instancia uma nova linha de comando
@@ -100,6 +101,23 @@ public final class Command {
 	 */
 	public Command(String exec, String... params) {
 		this(null, null, exec, params);
+	}
+
+	/**
+	 * Permite adicionar mais parâmetros à linha de comando.
+	 * 
+	 * @param params
+	 *            Os parâmetros a serem adicionados.
+	 */
+	public synchronized void addParam(String... params) {
+		int addCount = params.length;
+		if (addCount > 0) {
+			int oldCount = command.length;
+			String[] newCommand = new String[oldCount + addCount];
+			System.arraycopy(command, 0, newCommand, 0, oldCount);
+			System.arraycopy(params, 0, newCommand, oldCount, addCount);
+			command = newCommand;
+		}
 	}
 
 	/**
