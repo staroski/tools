@@ -1,11 +1,9 @@
 package br.com.staroski.tools.runtime;
 
-
 import static br.com.staroski.tools.io.IO.*;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.util.*;
 
 /**
  * Classe utilitária para facilitar a execução de linhas de comando.<BR>
@@ -16,8 +14,7 @@ import java.io.InputStream;
  * 
  * @author Ricardo Artur Staroski
  */
-final class Command {
-
+public final class Command {
 	// classe utilizada internamente para armazenar as saídas padrão e de erro do processo
 	private static class EnchainedListener implements CommandListener {
 
@@ -60,36 +57,12 @@ final class Command {
 		}
 	};
 
-	private final EnchainedListener outputListener;
-	private final EnchainedListener errorListener;
+	private EnchainedListener outputListener;
+	private EnchainedListener errorListener;
 
-	private String[] command;
+	private List<String> command;
 
-	/**
-	 * Instancia uma nova linha de comando
-	 * 
-	 * @param output
-	 *            O objeto que recebera a saída padrão do processo
-	 * 
-	 * @param error
-	 *            O objeto que recebera a saída de erro do processo
-	 * 
-	 * @param exec
-	 *            O caminho do executável
-	 * @param params
-	 *            Opcional, os argumentos do executável
-	 */
-	public Command(CommandListener output, CommandListener error, String exec, String... params) {
-		outputListener = new EnchainedListener(output);
-		errorListener = new EnchainedListener(error);
-
-		int args = 1 + params.length;
-		command = new String[args];
-		command[0] = exec;
-		for (int i = 1; i < args; i++) {
-			command[i] = params[i - 1];
-		}
-	}
+	private PrintWriter writer;
 
 	/**
 	 * Instancia uma nova linha de comando
@@ -100,7 +73,27 @@ final class Command {
 	 *            Opcional, os argumentos do executável
 	 */
 	public Command(String exec, String... params) {
-		this(null, null, exec, params);
+		outputListener = new EnchainedListener(null);
+		errorListener = new EnchainedListener(null);
+
+		command = new LinkedList<String>();
+		addParam(exec, params);
+	}
+
+	/**
+	 * Permite adicionar mais parâmetros à linha de comando.
+	 * 
+	 * @param first
+	 *            O primeiro parâmetro a ser adicionado.
+	 * 
+	 * @param others
+	 *            O resto dos parâmetros a serem adicionados.
+	 */
+	public void addParam(String first, String... others) {
+		command.add(first);
+		for (String other : others) {
+			command.add(other);
+		}
 	}
 
 	/**
@@ -109,14 +102,9 @@ final class Command {
 	 * @param params
 	 *            Os parâmetros a serem adicionados.
 	 */
-	public synchronized void addParam(String... params) {
-		int addCount = params.length;
-		if (addCount > 0) {
-			int oldCount = command.length;
-			String[] newCommand = new String[oldCount + addCount];
-			System.arraycopy(command, 0, newCommand, 0, oldCount);
-			System.arraycopy(params, 0, newCommand, oldCount, addCount);
-			command = newCommand;
+	public void addParam(String[] params) {
+		for (String param : params) {
+			command.add(param);
 		}
 	}
 
@@ -179,6 +167,8 @@ final class Command {
 		Thread errorsReader = new Thread(new StreamReader(process.getErrorStream(), errorListener));
 		Thread outputReader = new Thread(new StreamReader(process.getInputStream(), outputListener));
 
+		writer = new PrintWriter(new BufferedOutputStream(process.getOutputStream()));
+
 		errorsReader.start();
 		outputReader.start();
 
@@ -190,6 +180,21 @@ final class Command {
 	 */
 	public String getError() {
 		return errorListener.buffer.toString();
+	}
+
+	/**
+	 * Obtém o {@link PrintWriter PrintWriter} para se escrever na entrada do processo.<BR>
+	 * Só faz sentido utilizar o {@link PrintWriter PrintWriter} para processos que foram inicializados através dos métodos {@link #executeAssinchronous()} ou {@link #executeAssinchronous(File)}
+	 * 
+	 * @return O objeto {@link PrintWriter PrintWriter} para se escrever na entrada do processo.
+	 * 
+	 * @throws IllegalStateException se o processo ainda não foi inicializado.
+	 */
+	public PrintWriter getInput() {
+		if (writer == null) {
+			throw new IllegalStateException("Process not yet started!");
+		}
+		return writer;
 	}
 
 	/**
@@ -218,6 +223,22 @@ final class Command {
 	}
 
 	/**
+	 * @param error
+	 *            O objeto que recebera a saída de erro do processo
+	 */
+	public void setErrorListener(CommandListener error) {
+		errorListener = new EnchainedListener(error);
+	}
+
+	/**
+	 * @param output
+	 *            O objeto que recebera a saída padrão do processo
+	 */
+	public void setOutputListener(CommandListener output) {
+		outputListener = new EnchainedListener(output);
+	}
+
+	/**
 	 * Obtém o texto da linha de comando encapsulada
 	 * 
 	 * @return O texto da linha de comando encapsulada
@@ -225,11 +246,11 @@ final class Command {
 	@Override
 	public String toString() {
 		StringBuilder text = new StringBuilder();
-		for (int i = 0, n = command.length; i < n; i++) {
+		for (int i = 0, n = command.size(); i < n; i++) {
 			if (i > 0) {
 				text.append(" ");
 			}
-			text.append(command[i]);
+			text.append(command.get(i));
 		}
 		return text.toString();
 	}
