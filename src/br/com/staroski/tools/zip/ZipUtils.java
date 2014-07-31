@@ -3,6 +3,7 @@ package br.com.staroski.tools.zip;
 import static br.com.staroski.tools.io.IO.*;
 
 import java.io.*;
+import java.nio.file.*;
 import java.util.zip.*;
 
 /**
@@ -116,16 +117,39 @@ public final class ZipUtils {
 			if (elemento.isDirectory()) {
 				arquivo.mkdirs();
 			} else {
-				if (!arquivo.exists()) {
+				boolean existe = arquivo.exists();
+				if (!existe) {
 					final File parent = arquivo.getParentFile();
 					if (parent != null) {
 						parent.mkdirs();
 					}
 					arquivo.createNewFile();
 				}
+				boolean oculto = false;
+				boolean somenteLeitura = false;
+				if (existe) {
+					oculto = arquivo.isHidden();
+					if (oculto) {
+						Files.setAttribute(arquivo.toPath(), "dos:hidden", false);
+					}
+					somenteLeitura = !arquivo.canWrite();
+					if (somenteLeitura) {
+						arquivo.setWritable(true);
+					}
+				}
+
 				OutputStream saida = new FileOutputStream(arquivo);
 				copy(zip, saida, checksum);
 				saida.close();
+
+				if (existe) {
+					if (somenteLeitura) {
+						arquivo.setWritable(false);
+					}
+					if (oculto) {
+						Files.setAttribute(arquivo.toPath(), "dos:hidden", true);
+					}
+				}
 			}
 			arquivo.setLastModified(elemento.getTime());
 		}
