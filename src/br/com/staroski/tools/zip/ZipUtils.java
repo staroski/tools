@@ -5,8 +5,6 @@ import static br.com.staroski.tools.io.IO.*;
 import java.io.*;
 import java.util.zip.*;
 
-import br.com.staroski.tools.io.*;
-
 /**
  * Classe utilitária para compactação e descompactação de arquivos ZIP
  * 
@@ -40,14 +38,14 @@ public final class ZipUtils {
 			}
 			output.createNewFile();
 		}
-		CheckedOutputStream checksum = new CheckedOutputStream(new FileOutputStream(output), createChecksum());
-		final ZipOutputStream zip = new ZipOutputStream(new BufferedOutputStream(checksum));
+		Checksum checksum = createChecksum();
+		final ZipOutputStream zip = new ZipOutputStream(new FileOutputStream(output));
 		zip.setLevel(Deflater.BEST_COMPRESSION);
-		compress(null, input, zip);
+		compressInternal(null, input, zip, checksum);
 		zip.finish();
 		zip.flush();
 		zip.close();
-		return checksum.getChecksum().getValue();
+		return checksum.getValue();
 	}
 
 	/**
@@ -72,32 +70,34 @@ public final class ZipUtils {
 				throw new IllegalArgumentException("\"" + output.getAbsolutePath() + "\" não é um diretório!");
 			}
 		}
-		CheckedInputStream checksum = new CheckedInputStream(new FileInputStream(input), createChecksum());
-		final ZipInputStream zip = new ZipInputStream(new BufferedInputStream(checksum));
-		extract(zip, output);
+		Checksum checksum = createChecksum();
+		final ZipInputStream zip = new ZipInputStream(new FileInputStream(input));
+		extractInternal(zip, output, checksum);
 		zip.close();
-		return checksum.getChecksum().getValue();
+		return checksum.getValue();
 	}
 
 	// Adiciona determinado arquivo ao ZIP
-	private static void compress(final String caminho, final File arquivo, final ZipOutputStream saida) throws IOException {
+	private static void compressInternal(final String caminho, final File arquivo, final ZipOutputStream zip, Checksum checksum) throws IOException {
 		final boolean dir = arquivo.isDirectory();
 		String nome = arquivo.getName();
 		nome = (caminho != null ? caminho + "/" + nome : nome);
-		final ZipEntry elemento = new ZipEntry(nome + (dir ? "/" : ""));
-		elemento.setSize(arquivo.length());
-		elemento.setTime(arquivo.lastModified());
-		saida.putNextEntry(elemento);
+		final ZipEntry item = new ZipEntry(nome + (dir ? "/" : ""));
+		item.setTime(arquivo.lastModified());
+		zip.putNextEntry(item);
 		if (dir) {
+			zip.closeEntry();
 			final File[] arquivos = arquivo.listFiles();
 			for (int i = 0; i < arquivos.length; i++) {
 				// recursivamente adiciona outro arquivo ao ZIP
-				compress(nome, arquivos[i], saida);
+				compressInternal(nome, arquivos[i], zip, checksum);
 			}
 		} else {
+			item.setSize(arquivo.length());
 			final FileInputStream entrada = new FileInputStream(arquivo);
-			copy(entrada, saida);
+			copy(entrada, zip, checksum);
 			entrada.close();
+			zip.closeEntry();
 		}
 	}
 
@@ -106,7 +106,7 @@ public final class ZipUtils {
 	}
 
 	// Retira determinado elemento do arquivo ZIP
-	private static void extract(final ZipInputStream zip, final File pasta) throws IOException {
+	private static void extractInternal(final ZipInputStream zip, final File pasta, Checksum checksum) throws IOException {
 		ZipEntry elemento = null;
 		while ((elemento = zip.getNextEntry()) != null) {
 			String nome = elemento.getName();
@@ -124,10 +124,7 @@ public final class ZipUtils {
 					arquivo.createNewFile();
 				}
 				OutputStream saida = new FileOutputStream(arquivo);
-				byte[] buffer = new byte[IO.BLOCK_SIZE];
-				for (int lidos = -1; (lidos = zip.read(buffer, 0, IO.BLOCK_SIZE)) != -1; saida.write(buffer, 0, lidos))
-					;
-				saida.flush();
+				copy(zip, saida, checksum);
 				saida.close();
 			}
 			arquivo.setLastModified(elemento.getTime());
