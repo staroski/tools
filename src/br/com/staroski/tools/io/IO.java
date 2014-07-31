@@ -13,6 +13,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.*;
 
 /**
  * Classe utilitária para operações de I/O
@@ -20,11 +21,6 @@ import java.util.List;
  * @author Ricardo Artur Staroski
  */
 public final class IO {
-
-	/**
-	 * Tamanho padrão, 8KB, utilizado para blocos de memória.
-	 */
-	public static int BLOCK_SIZE = 8192;
 
 	/**
 	 * Copia o arquivo de origem para o arquivo de destino.
@@ -39,6 +35,26 @@ public final class IO {
 		InputStream in = new FileInputStream(from);
 		OutputStream out = new FileOutputStream(to);
 		copy(in, out);
+		in.close();
+		out.close();
+		to.setLastModified(from.lastModified());
+	}
+
+	/**
+	 * Copia o arquivo de origem para o arquivo de destino.
+	 * 
+	 * @param from
+	 *            O arquivo de origem.
+	 * @param to
+	 *            O arquivo de destino.
+	 * @param checksum
+	 *            O checksum da escrita.
+	 * @throws IOException
+	 */
+	public static void copy(File from, File to, Checksum checksum) throws IOException {
+		InputStream in = new FileInputStream(from);
+		OutputStream out = new FileOutputStream(to);
+		copy(in, out, checksum);
 		in.close();
 		out.close();
 		to.setLastModified(from.lastModified());
@@ -62,6 +78,26 @@ public final class IO {
 	}
 
 	/**
+	 * Copia o conteúdo do stream de entrada para o stream de saída.
+	 * 
+	 * @param from
+	 *            O stream de entrada.
+	 * @param to
+	 *            O stream de saída.
+	 * @param checksum
+	 *            O checksum da escrita.
+	 * @throws IOException
+	 */
+	public static void copy(InputStream from, OutputStream to, Checksum checksum) throws IOException {
+		final int count = BLOCK_SIZE;
+		byte[] bytes = new byte[count];
+		for (int read = -1; (read = from.read(bytes, 0, count)) != -1; to.write(bytes, 0, read)) {
+			checksum.update(bytes, 0, read);
+		}
+		to.flush();
+	}
+
+	/**
 	 * Copia o arquivo de origem para o arquivo de destino.
 	 * 
 	 * @param from
@@ -72,6 +108,21 @@ public final class IO {
 	 */
 	public static void copy(String from, String to) throws IOException {
 		copy(new FileInputStream(from), new FileOutputStream(to));
+	}
+
+	/**
+	 * Copia o arquivo de origem para o arquivo de destino.
+	 * 
+	 * @param from
+	 *            O caminho do arquivo de origem.
+	 * @param to
+	 *            O caminho do arquivo de destino.
+	 * @param checksum
+	 *            O checksum da escrita.
+	 * @throws IOException
+	 */
+	public static void copy(String from, String to, Checksum checksum) throws IOException {
+		copy(new FileInputStream(from), new FileOutputStream(to), checksum);
 	}
 
 	/**
@@ -155,6 +206,11 @@ public final class IO {
 		output.flush();
 		output.close();
 	}
+
+	/**
+	 * Tamanho padrão, 8KB, utilizado para blocos de memória.
+	 */
+	public static int BLOCK_SIZE = 8192;
 
 	// não faz sentido instanciar esta classe
 	private IO() {
