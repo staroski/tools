@@ -1,7 +1,7 @@
 package br.com.staroski.tools.runtime;
 
 /**
- * Listener da classe {@link Command} utilizado para receber as mensagens de saída e de erro do processo executado.
+ * Listener da classe {@link Command} utilizado para receber as mensagens de sa&iacute;da e de erro do processo executado.
  * 
  * @see Command
  * 
@@ -21,7 +21,7 @@ public interface CommandListener {
 	};
 
 	/**
-	 * Recebe uma mensagem do processo em execução.
+	 * Recebe uma mensagem do processo em execu&ccedil;&atilde;o.
 	 * 
 	 * @param message
 	 *            A mensagem recebida.

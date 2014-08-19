@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.zip.*;
 
 /**
- * Classe utilitária para operações de I/O
+ * Classe utilit&aacute;ria para opera&ccedil;&otilde;es de I/O
  * 
  * @author Ricardo Artur Staroski
  */
@@ -61,12 +61,12 @@ public final class IO {
 	}
 
 	/**
-	 * Copia o conteúdo do stream de entrada para o stream de saída.
+	 * Copia o conte&uacute;do do stream de entrada para o stream de sa&iacute;da.
 	 * 
 	 * @param from
 	 *            O stream de entrada.
 	 * @param to
-	 *            O stream de saída.
+	 *            O stream de sa&iacute;da.
 	 * @throws IOException
 	 */
 	public static void copy(InputStream from, OutputStream to) throws IOException {
@@ -78,12 +78,12 @@ public final class IO {
 	}
 
 	/**
-	 * Copia o conteúdo do stream de entrada para o stream de saída.
+	 * Copia o conte&uacute;do do stream de entrada para o stream de sa&iacute;da.
 	 * 
 	 * @param from
 	 *            O stream de entrada.
 	 * @param to
-	 *            O stream de saída.
+	 *            O stream de sa&iacute;da.
 	 * @param checksum
 	 *            O checksum da escrita.
 	 * @throws IOException
@@ -126,11 +126,11 @@ public final class IO {
 	}
 
 	/**
-	 * Analisa o arquivo informado, se o mesmo não existir, um novo é criado
+	 * Analisa o arquivo informado, se o mesmo n&atilde;o existir, um novo &eacute; criado
 	 * 
 	 * @param file
 	 *            O arquivo a ser verificado
-	 * @return O próprio parâmetro
+	 * @return O pr&oacute;prio par&acirc;metro
 	 * @throws IOException
 	 */
 	public static File createIfNotExists(File file) throws IOException {
@@ -167,7 +167,7 @@ public final class IO {
 	}
 
 	/**
-	 * Obtém todas as linhas do arquivo informado
+	 * Obt&eacute;m todas as linhas do arquivo informado
 	 * 
 	 * @param file
 	 *            O arquivo do qual se deseja ler as linhas
@@ -208,7 +208,7 @@ public final class IO {
 	}
 
 	/**
-	 * Tamanho padrão, 8KB, utilizado para blocos de memória.
+	 * Tamanho padr&atilde;o, 8KB, utilizado para blocos de mem&oacute;ria.
 	 */
 	public static int BLOCK_SIZE = 8192;
 

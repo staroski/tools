@@ -7,22 +7,22 @@ import java.nio.file.*;
 import java.util.zip.*;
 
 /**
- * Classe utilitária para compactação e descompactação de arquivos ZIP
+ * Classe utilit&aacute;ria para compacta&ccedil;&atilde;o e descompacta&ccedil;&atilde;o de arquivos ZIP
  * 
  * @author Ricardo Artur Staroski
  */
 public final class ZipUtils {
 
 	/**
-	 * Compacta determindado arquivo ou diretório para o arquivo ZIP
+	 * Compacta determindado arquivo ou diret&oacute;rio para o arquivo ZIP
 	 * especificado
 	 * 
 	 * @param input
-	 *            O arquivo ou diretório de entrada
+	 *            O arquivo ou diret&oacute;rio de entrada
 	 * @param output
-	 *            O arquivo ZIP de saída
+	 *            O arquivo ZIP de sa&iacute;da
 	 *
-	 *@return O checksum da compactação do arquivo
+	 *@return O checksum da compacta&ccedil;&atilde;o do arquivo
 	 */
 	public static long compress(final File input, final File output) throws IOException {
 		if (!input.exists()) {
@@ -50,13 +50,13 @@ public final class ZipUtils {
 	}
 
 	/**
-	 * Extrai um arquivo ZIP para o diretório especificado
+	 * Extrai um arquivo ZIP para o diret&oacute;rio especificado
 	 * 
 	 * @param input
 	 *            O arquivo ZIP de entrada
 	 * @param output
-	 *            O diretório de saída
-	 *@return O checksum da descompactação do arquivo
+	 *            O diret&oacute;rio de sa&iacute;da
+	 *@return O checksum da descompacta&ccedil;&atilde;o do arquivo
 	 */
 	public static long extract(final File input, final File output) throws IOException {
 		if (input.exists()) {

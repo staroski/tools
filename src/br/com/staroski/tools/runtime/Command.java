@@ -6,11 +6,11 @@ import java.io.*;
 import java.util.*;
 
 /**
- * Classe utilitária para facilitar a execução de linhas de comando.<BR>
+ * Classe utilit&aacute;ria para facilitar a execu&ccedil;&atilde;o de linhas de comando.<BR>
  * Possui dois construtores:<BR>
- * - o {@link #CommandLine(String, String...) primeiro} recebe a linha de comando e opcionalmente seus parâmetros;<BR>
- * - o {@link #CommandLine(CommandListener, CommandListener, String, String...) segundo} aceita também dois {@link CommandListener listeners}, um para receber
- * as mensagens da saída padrão do processo e outro para receber as mensagens da saída de erro. <BR>
+ * - o {@link #CommandLine(String, String...) primeiro} recebe a linha de comando e opcionalmente seus par&acirc;metros;<BR>
+ * - o {@link #CommandLine(CommandListener, CommandListener, String, String...) segundo} aceita tamb&eacute;m dois {@link CommandListener listeners}, um para receber
+ * as mensagens da sa&iacute;da padr&atilde;o do processo e outro para receber as mensagens da sa&iacute;da de erro. <BR>
  * 
  * @author Ricardo Artur Staroski
  */
@@ -68,9 +68,9 @@ public final class Command {
 	 * Instancia uma nova linha de comando
 	 * 
 	 * @param exec
-	 *            O caminho do executável
+	 *            O caminho do execut&aacute;vel
 	 * @param params
-	 *            Opcional, os argumentos do executável
+	 *            Opcional, os argumentos do execut&aacute;vel
 	 */
 	public Command(String exec, String... params) {
 		outputListener = new EnchainedListener(null);
@@ -81,13 +81,13 @@ public final class Command {
 	}
 
 	/**
-	 * Permite adicionar mais parâmetros à linha de comando.
+	 * Permite adicionar mais par&acirc;metros &agrave; linha de comando.
 	 * 
 	 * @param first
-	 *            O primeiro parâmetro a ser adicionado.
+	 *            O primeiro par&acirc;metro a ser adicionado.
 	 * 
 	 * @param others
-	 *            O resto dos parâmetros a serem adicionados.
+	 *            O resto dos par&acirc;metros a serem adicionados.
 	 */
 	public void addParam(String first, String... others) {
 		command.add(first);
@@ -97,10 +97,10 @@ public final class Command {
 	}
 
 	/**
-	 * Permite adicionar mais parâmetros à linha de comando.
+	 * Permite adicionar mais par&acirc;metros &agrave; linha de comando.
 	 * 
 	 * @param params
-	 *            Os parâmetros a serem adicionados.
+	 *            Os par&acirc;metros a serem adicionados.
 	 */
 	public void addParam(String[] params) {
 		for (String param : params) {
@@ -111,7 +111,7 @@ public final class Command {
 	/**
 	 * Executa esta linha de comando
 	 * 
-	 * @return O código de saída do processo
+	 * @return O c&oacute;digo de sa&iacute;da do processo
 	 * @throws IOException
 	 */
 	public int execute() throws IOException {
@@ -122,9 +122,9 @@ public final class Command {
 	 * Executa esta linha de comando
 	 * 
 	 * @param directory
-	 *            O diretório a partir do qual a linha de comando será executada
+	 *            O diret&oacute;rio a partir do qual a linha de comando ser&aacute; executada
 	 * 
-	 * @return O código de saída do processo
+	 * @return O c&oacute;digo de sa&iacute;da do processo
 	 * @throws IOException
 	 */
 	public int execute(File directory) throws IOException {
@@ -138,8 +138,8 @@ public final class Command {
 	}
 
 	/**
-	 * Executa esta linha de comando assíncronamente, devolvendo o {@link Process processo} disparado, ficando a encardo do desenvolvedor invocar o método
-	 * {@link Process#waitFor() waitFor()} para obter o código de saída da aplicação
+	 * Executa esta linha de comando ass&iacute;ncronamente, devolvendo o {@link Process processo} disparado, ficando a encardo do desenvolvedor invocar o m&eacute;todo
+	 * {@link Process#waitFor() waitFor()} para obter o c&oacute;digo de sa&iacute;da da aplica&ccedil;&atilde;o
 	 * 
 	 * 
 	 * @return O {@link Process processo} que foi disparado
@@ -150,11 +150,11 @@ public final class Command {
 	}
 
 	/**
-	 * Executa esta linha de comando assíncronamente, devolvendo o {@link Process processo} disparado, ficando a encardo do desenvolvedor invocar o método
-	 * {@link Process#waitFor() waitFor()} para obter o código de saída da aplicação
+	 * Executa esta linha de comando ass&iacute;ncronamente, devolvendo o {@link Process processo} disparado, ficando a encardo do desenvolvedor invocar o m&eacute;todo
+	 * {@link Process#waitFor() waitFor()} para obter o c&oacute;digo de sa&iacute;da da aplica&ccedil;&atilde;o
 	 * 
 	 * @param directory
-	 *            O diretório a partir do qual a linha de comando será executada
+	 *            O diret&oacute;rio a partir do qual a linha de comando ser&aacute; executada
 	 * 
 	 * @return O {@link Process processo} que foi disparado
 	 * @throws IOException
@@ -183,12 +183,12 @@ public final class Command {
 	}
 
 	/**
-	 * Obtém o {@link PrintWriter PrintWriter} para se escrever na entrada do processo.<BR>
-	 * Só faz sentido utilizar o {@link PrintWriter PrintWriter} para processos que foram inicializados através dos métodos {@link #executeAssinchronous()} ou {@link #executeAssinchronous(File)}
+	 * Obt&eacute;m o {@link PrintWriter PrintWriter} para se escrever na entrada do processo.<BR>
+	 * S&oacute; faz sentido utilizar o {@link PrintWriter PrintWriter} para processos que foram inicializados atrav&eacute;s dos m&eacute;todos {@link #executeAssinchronous()} ou {@link #executeAssinchronous(File)}
 	 * 
 	 * @return O objeto {@link PrintWriter PrintWriter} para se escrever na entrada do processo.
 	 * 
-	 * @throws IllegalStateException se o processo ainda não foi inicializado.
+	 * @throws IllegalStateException se o processo ainda n&atilde;o foi inicializado.
 	 */
 	public PrintWriter getInput() {
 		if (writer == null) {
@@ -198,25 +198,25 @@ public final class Command {
 	}
 
 	/**
-	 * @return o texto contendo as mensagens de saída do processo
+	 * @return o texto contendo as mensagens de sa&iacute;da do processo
 	 */
 	public String getOutput() {
 		return outputListener.buffer.toString();
 	}
 
 	/**
-	 * Verifica se há mensagens de erro do processo
+	 * Verifica se h&aacute; mensagens de erro do processo
 	 * 
-	 * @return <code>true</code> se houver mensagem de erro <code>false</code> caso contrário
+	 * @return <code>true</code> se houver mensagem de erro <code>false</code> caso contr&aacute;rio
 	 */
 	public boolean hasError() {
 		return !getError().isEmpty();
 	}
 
 	/**
-	 * Verifica se há mensagens de saída do processo
+	 * Verifica se h&aacute; mensagens de sa&iacute;da do processo
 	 * 
-	 * @return <code>true</code> se houver mensagem de saída <code>false</code> caso contrário
+	 * @return <code>true</code> se houver mensagem de sa&iacute;da <code>false</code> caso contr&aacute;rio
 	 */
 	public boolean hasOutput() {
 		return !getOutput().isEmpty();
@@ -224,7 +224,7 @@ public final class Command {
 
 	/**
 	 * @param error
-	 *            O objeto que recebera a saída de erro do processo
+	 *            O objeto que recebera a sa&iacute;da de erro do processo
 	 */
 	public void setErrorListener(CommandListener error) {
 		errorListener = new EnchainedListener(error);
@@ -232,14 +232,14 @@ public final class Command {
 
 	/**
 	 * @param output
-	 *            O objeto que recebera a saída padrão do processo
+	 *            O objeto que recebera a sa&iacute;da padr&atilde;o do processo
 	 */
 	public void setOutputListener(CommandListener output) {
 		outputListener = new EnchainedListener(output);
 	}
 
 	/**
-	 * Obtém o texto da linha de comando encapsulada
+	 * Obt&eacute;m o texto da linha de comando encapsulada
 	 * 
 	 * @return O texto da linha de comando encapsulada
 	 */

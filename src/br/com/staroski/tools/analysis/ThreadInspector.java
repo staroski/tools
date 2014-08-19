@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import javax.swing.UIManager;
 
 /**
- * Classe utilitária que exibe a pilha de chamada das {@link Thread threads} em execução.<BR>
+ * Classe utilit&aacute;ria que exibe a pilha de chamada das {@link Thread threads} em execu&ccedil;&atilde;o.<BR>
  * <BR>
  * Execute seus aplicativos Java a partir desta classe da seguinte forma:
  * 
@@ -13,10 +13,10 @@ import javax.swing.UIManager;
  * &lt;java&gt; &lt;inspector&gt; &lt;main-class&gt; &lt;args&gt;
  * 
  * Onde:
- *     &lt;java&gt;       é a JVM a ser executada
- *     &lt;inspector&gt;  é br.com.staroski.analysis.ThreadInspector
- *     &lt;main-class&gt; é a classe a ser executada
- *     &lt;args&gt;       são os argumentos para o método 'main' da &lt;main-class&gt; 
+ *     &lt;java&gt;       &eacute; a JVM a ser executada
+ *     &lt;inspector&gt;  &eacute; br.com.staroski.analysis.ThreadInspector
+ *     &lt;main-class&gt; &eacute; a classe a ser executada
+ *     &lt;args&gt;       s&atilde;o os argumentos para o m&eacute;todo 'main' da &lt;main-class&gt; 
  * </PRE>
  * 
  * @author Ricardo Artur Staroski
@@ -26,7 +26,7 @@ public final class ThreadInspector {
     /**
      * Ponto de entrada do aplicativo.
      * 
-     * @param args Array de {@link String} onde o primeiro argumento é o nome da classe a ser executada ( <code>&lt;main-class&gt</code> ) e os outros elementos são os argumentos do método
+     * @param args Array de {@link String} onde o primeiro argumento &eacute; o nome da classe a ser executada ( <code>&lt;main-class&gt</code> ) e os outros elementos s&atilde;o os argumentos do m&eacute;todo
      *            <code>main</code> ( <code>&lt;args&gt;</code> ) da mesma classe.
      */
     public static void main(String... args) {
