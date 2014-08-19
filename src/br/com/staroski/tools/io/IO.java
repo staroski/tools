@@ -192,7 +192,6 @@ public final class IO {
 	 *            As linhas a serem gravadas
 	 * @param file
 	 *            O arquivo no qual se deseja gravar as linhas
-	 * @return Uma lista de contendo as linhas do arquivo
 	 * @throws IOException
 	 */
 	public static void writeLines(File file, List<String> lines) throws IOException {

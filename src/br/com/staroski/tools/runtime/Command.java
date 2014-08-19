@@ -7,10 +7,7 @@ import java.util.*;
 
 /**
  * Classe utilit&aacute;ria para facilitar a execu&ccedil;&atilde;o de linhas de comando.<BR>
- * Possui dois construtores:<BR>
- * - o {@link #CommandLine(String, String...) primeiro} recebe a linha de comando e opcionalmente seus par&acirc;metros;<BR>
- * - o {@link #CommandLine(CommandListener, CommandListener, String, String...) segundo} aceita tamb&eacute;m dois {@link CommandListener listeners}, um para receber
- * as mensagens da sa&iacute;da padr&atilde;o do processo e outro para receber as mensagens da sa&iacute;da de erro. <BR>
+ * Possui o construtor {@link #Command(String, String...)} que recebe a linha de comando e opcionalmente seus par&acirc;metros.<BR>
  * 
  * @author Ricardo Artur Staroski
  */
@@ -138,7 +135,7 @@ public final class Command {
 	}
 
 	/**
-	 * Executa esta linha de comando ass&iacute;ncronamente, devolvendo o {@link Process processo} disparado, ficando a encardo do desenvolvedor invocar o m&eacute;todo
+	 * Executa esta linha de comando ass&iacute;ncronamente, devolvendo o {@link Process processo} disparado, ficando a encargo do desenvolvedor invocar o m&eacute;todo
 	 * {@link Process#waitFor() waitFor()} para obter o c&oacute;digo de sa&iacute;da da aplica&ccedil;&atilde;o
 	 * 
 	 * 
@@ -150,7 +147,7 @@ public final class Command {
 	}
 
 	/**
-	 * Executa esta linha de comando ass&iacute;ncronamente, devolvendo o {@link Process processo} disparado, ficando a encardo do desenvolvedor invocar o m&eacute;todo
+	 * Executa esta linha de comando ass&iacute;ncronamente, devolvendo o {@link Process processo} disparado, ficando a encargo do desenvolvedor invocar o m&eacute;todo
 	 * {@link Process#waitFor() waitFor()} para obter o c&oacute;digo de sa&iacute;da da aplica&ccedil;&atilde;o
 	 * 
 	 * @param directory
