@@ -10,7 +10,7 @@ import java.util.List;
  * @author Ricardo Artur Staroski
  */
 @SuppressWarnings("unchecked")
-public final class MultiKey implements Comparable<MultiKey> {
+final class MultiKey implements Comparable<MultiKey> {
 
     private final int hashCode;
     private final List<Object> objects;
@@ -18,9 +18,12 @@ public final class MultiKey implements Comparable<MultiKey> {
     /**
      * Instancia uma nova {@link MultiKey chave composta}.
      * 
-     * @param key1 O primeiro objeto da chave
-     * @param key2 O segundo objeto da chave.
-     * @param moreKeys Os outros objetos da chave. (<B><I>Opcional</I></B>)
+     * @param key1
+     *            O primeiro objeto da chave
+     * @param key2
+     *            O segundo objeto da chave.
+     * @param moreKeys
+     *            Os outros objetos da chave. (<B><I>Opcional</I></B>)
      */
     public MultiKey(Object key1, Object key2, Object... moreKeys) {
         List<Object> objects = new LinkedList<>();
@@ -56,7 +59,8 @@ public final class MultiKey implements Comparable<MultiKey> {
     /**
      * Obtém o objeto do índice informado desta {@link MultiKey chave composta}.
      * 
-     * @param index O índece do objeto que se deseja obter.
+     * @param index
+     *            O índece do objeto que se deseja obter.
      * @return O objeto no índice informado.
      */
     public <T> T get(int index) {
