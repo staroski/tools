@@ -1,4 +1,4 @@
 /**
- * Neste pacote encontram-se classes utilit&aacute;rias para a cria&ccedil;&atilde;o de caches.
+ * This package contains classes usefull to create object caches.
  */
 package br.com.staroski.tools.cache;

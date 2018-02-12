@@ -1,4 +1,4 @@
 /**
- * Neste pacote encontram-se classes utilit&aacute;rias para execu&ccedil;&atilde;o de linhas de comando.
+ * This package contains classes usefull to start command line tools and/or other OS native programs.
  */
 package br.com.staroski.tools.runtime;

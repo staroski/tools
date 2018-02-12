@@ -1,4 +1,4 @@
 /**
- * Neste pacote encontram-se classes utilit&aacute;rias para opera&ccedil;&otilde;es de I/O.
+ * This package contains classes usefull to perform I/O operations..
  */
 package br.com.staroski.tools.io;

@@ -1,4 +1,4 @@
 /**
- * Neste pacote encontram-se classes utilit&aacute;rias para compacta&ccedil;&atilde;o e descompacta&ccedil;&atilde;o de arquivos.
+ * This package contains classes usefull to compress and extract files and folders.
  */
 package br.com.staroski.tools.zip;

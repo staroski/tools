@@ -1,4 +1,4 @@
 /**
- * Neste pacote encontram-se classes utilit&aacute;rias para convers&otilde;es de unidades de temperatura.
+ * This package contains classes usefull to convert temperature units.
  */
 package br.com.staroski.tools.temperature;

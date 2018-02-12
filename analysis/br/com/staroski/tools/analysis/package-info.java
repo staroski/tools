@@ -1,4 +1,4 @@
 /**
- * Neste pacote encontram-se classes para auxiliar na an&aacute;lise de aplicativos Java.
+ * This package contains classes usefull to analyse running java applications.
  */
 package br.com.staroski.tools.analysis;
