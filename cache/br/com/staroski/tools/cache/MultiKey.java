@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Esta classe representa uma chave composta por mais de um objeto.
+ * This class represents a key composed by more than one object.
  * 
  * @author Ricardo Artur Staroski
  */
@@ -16,14 +16,14 @@ final class MultiKey implements Comparable<MultiKey> {
     private final List<Object> objects;
 
     /**
-     * Instancia uma nova {@link MultiKey chave composta}.
+     * Creates a new {@link MultiKey compound key}.
      * 
      * @param key1
-     *            O primeiro objeto da chave
+     *            The firs object of this key.
      * @param key2
-     *            O segundo objeto da chave.
+     *            The second object of this key.
      * @param moreKeys
-     *            Os outros objetos da chave. (<B><I>Opcional</I></B>)
+     *            The others objects from this. (<B><I>Optional</I></B>)
      */
     public MultiKey(Object key1, Object key2, Object... moreKeys) {
         List<Object> objects = new LinkedList<>();
@@ -46,22 +46,22 @@ final class MultiKey implements Comparable<MultiKey> {
         }
         if (object instanceof MultiKey) {
             final MultiKey that = (MultiKey) object;
-            // se os hashes são diferentes, então de cara já sei que os objetos também são diferentes
+            // if the hashes are different then the objects are different
             if (this.hashCode != that.hashCode) {
                 return false;
             }
-            // objetos diferentes podem ter hashes iguais, então comparo eles
+            // different object can have equal hashes, so compare it to ensure
             return this.objects.equals(that.objects);
         }
         return false;
     }
 
     /**
-     * Obtém o objeto do índice informado desta {@link MultiKey chave composta}.
+     * Gets the object at the specified index of this {@link MultiKey compound key}.
      * 
      * @param index
-     *            O índece do objeto que se deseja obter.
-     * @return O objeto no índice informado.
+     *            The index of the object to get.
+     * @return The object at specified index.
      */
     public <T> T get(int index) {
         return (T) objects.get(index);

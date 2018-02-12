@@ -1,21 +1,24 @@
 package br.com.staroski.tools.cache;
 
 /**
- * Interface para carregar objetos para dentro de um {@link Cache cache}.
+ * Interface to load objects inside a {@link Cache cache}.
  * 
  * @author Ricardo Artur Staroski
  *
- * @param <K> Tipo de dado da chave de busca do {@link Cache cache}.
- * @param <K> Tipo de dado do objeto carregado a partir da chave de busca.
+ * @param <K>
+ *            Data type of the {@link Cache cache}'s search key.
+ * @param <K>
+ *            Data type of the object loaded by the search key.
  * @see Cache
  */
 public interface CacheLoader<K, V> {
 
     /**
-     * Utiliza a chave de busca informada para carregar um valor.
+     * Uses the specified search key to load a value.
      * 
-     * @param key A chave de busca.
-     * @return O valor carregado a partir da chave de busca.
+     * @param key
+     *            The search key.
+     * @return The value loader for the specified search key.
      */
     public V load(K key);
 }
