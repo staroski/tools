@@ -16,7 +16,7 @@ import javax.swing.UIManager;
  *     &lt;java&gt;       &eacute; a JVM a ser executada
  *     &lt;inspector&gt;  &eacute; br.com.staroski.analysis.ThreadInspector
  *     &lt;main-class&gt; &eacute; a classe a ser executada
- *     &lt;args&gt;       s&atilde;o os argumentos para o m&eacute;todo 'main' da &lt;main-class&gt; 
+ *     &lt;args&gt;       s&atilde;o os argumentos para o m&eacute;todo 'main' da &lt;main-class&gt;
  * </PRE>
  * 
  * @author Ricardo Artur Staroski
@@ -26,8 +26,9 @@ public final class ThreadInspector {
     /**
      * Ponto de entrada do aplicativo.
      * 
-     * @param args Array de {@link String} onde o primeiro argumento &eacute; o nome da classe a ser executada ( <code>&lt;main-class&gt</code> ) e os outros elementos s&atilde;o os argumentos do m&eacute;todo
-     *            <code>main</code> ( <code>&lt;args&gt;</code> ) da mesma classe.
+     * @param args
+     *            Array de {@link String} onde o primeiro argumento &eacute; o nome da classe a ser executada ( <code>&lt;main-class&gt</code> ) e os outros
+     *            elementos s&atilde;o os argumentos do m&eacute;todo <code>main</code> ( <code>&lt;args&gt;</code> ) da mesma classe.
      */
     public static void main(String... args) {
         if (args.length < 1) {

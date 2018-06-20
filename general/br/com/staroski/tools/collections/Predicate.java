@@ -10,38 +10,34 @@ package br.com.staroski.tools.collections;
  */
 public interface Predicate<T> {
 
-	/**
-	 * @see #object() Predicate.Null.object()
-	 */
-	public static final class Null {
+    /**
+     * @see #object() Predicate.Null.object()
+     */
+    public static final class Null {
 
-		/**
-		 * @return Uma instância padrão <I>Null Object</I> da interface
-		 *         {@link Predicate}
-		 */
-		public static <T> Predicate<T> object() {
-			return new Predicate<T>() {
+        /**
+         * @return Uma instância padrão <I>Null Object</I> da interface {@link Predicate}
+         */
+        public static <T> Predicate<T> object() {
+            return new Predicate<T>() {
 
-				@Override
-				public boolean apply(T object) {
-					return true;
-				}
-			};
-		}
+                @Override
+                public boolean apply(T object) {
+                    return true;
+                }
+            };
+        }
 
-		// não instanciável
-		private Null() {
-		}
-	}
+        // não instanciável
+        private Null() {}
+    }
 
-	/**
-	 * Verifica se o objeto informado atende à este {@link Predicate predicado}
-	 * .
-	 * 
-	 * @param object
-	 *            O objeto a ser verificado.
-	 * @return <code>true</code> se o objeto atende à este {@link Predicate
-	 *         predicado} e <code>false</code> caso contrário.
-	 */
-	public boolean apply(T object);
+    /**
+     * Verifica se o objeto informado atende à este {@link Predicate predicado} .
+     * 
+     * @param object
+     *            O objeto a ser verificado.
+     * @return <code>true</code> se o objeto atende à este {@link Predicate predicado} e <code>false</code> caso contrário.
+     */
+    public boolean apply(T object);
 }

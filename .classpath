@@ -2,11 +2,12 @@
 <classpath>
 	<classpathentry kind="src" path="temperature"/>
 	<classpathentry kind="src" path="general"/>
-	<classpathentry kind="src" path="runtime"/>
-	<classpathentry kind="src" path="io"/>
-	<classpathentry kind="src" path="cache"/>
 	<classpathentry kind="src" path="analysis"/>
 	<classpathentry kind="src" path="zip"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 import javax.swing.table.AbstractTableModel;
 
 final class StackViewer {
@@ -24,10 +26,12 @@ final class StackViewer {
 
             private static final long serialVersionUID = 1;
 
+            @Override
             public int getColumnCount() {
                 return 4;
             }
 
+            @Override
             public String getColumnName(int col) {
                 switch (col) {
                     case 0:
@@ -42,14 +46,16 @@ final class StackViewer {
                 return null;
             }
 
+            @Override
             public int getRowCount() {
-                synchronized(LOCK) {
+                synchronized (LOCK) {
                     return stack != null ? stack.length : 0;
                 }
             }
 
+            @Override
             public Object getValueAt(int row, int col) {
-                synchronized(LOCK) {
+                synchronized (LOCK) {
                     if (row < stack.length) {
                         switch (col) {
                             case 0:
@@ -88,7 +94,7 @@ final class StackViewer {
         }
 
         void update() {
-            synchronized(LOCK) {
+            synchronized (LOCK) {
                 this.stack = thread.getStackTrace();
                 ((AbstractTableModel) table.getModel()).fireTableDataChanged();
             }
@@ -111,13 +117,15 @@ final class StackViewer {
 
     private StackViewer() {
         frame = new JFrame("Staroski's VM Inspector");
-        tabPanel = new JTabbedPane(JTabbedPane.LEFT);
+        tabPanel = new JTabbedPane(SwingConstants.LEFT);
         frame.setContentPane(tabPanel);
-        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         frame.addWindowListener(new WindowAdapter() {
 
+            @Override
             public void windowClosing(WindowEvent e) {
-                int option = JOptionPane.showConfirmDialog(frame, "Do you really want to exit?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                int option = JOptionPane.showConfirmDialog(frame, "Do you really want to exit?", "Confirmation", JOptionPane.YES_NO_OPTION,
+                                                           JOptionPane.QUESTION_MESSAGE);
                 if (option == JOptionPane.YES_OPTION) {
                     System.exit(0);
                 }
@@ -151,6 +159,7 @@ final class StackViewer {
     void runMonitor() {
         Thread thread = new Thread(new Runnable() {
 
+            @Override
             public void run() {
                 while (true) {
                     if (frame.isVisible()) {

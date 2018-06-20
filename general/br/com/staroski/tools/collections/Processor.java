@@ -10,51 +10,49 @@ package br.com.staroski.tools.collections;
  */
 public interface Processor<T> {
 
-	/**
-	 * @see #object() Processor.Null.object()
-	 */
-	public static final class Null {
+    /**
+     * @see #object() Processor.Null.object()
+     */
+    public static final class Null {
 
-		/**
-		 * @return Uma instância padrão <I>Null Object</I> da interface
-		 *         {@link Processor}
-		 */
-		public static <T> Processor<T> object() {
-			return new ProcessorAdapter<T>() {
+        /**
+         * @return Uma instância padrão <I>Null Object</I> da interface {@link Processor}
+         */
+        public static <T> Processor<T> object() {
+            return new ProcessorAdapter<T>() {
 
-				@Override
-				public T process(T object) {
-					return object;
-				}
-			};
-		}
+                @Override
+                public T process(T object) {
+                    return object;
+                }
+            };
+        }
 
-		// não instanciável
-		private Null() {
-		}
-	}
+        // não instanciável
+        private Null() {}
+    }
 
-	/**
-	 * Invocado antes de iniciar o processamento.
-	 */
-	public void beforeStart();
+    /**
+     * Invocado após finalizar o processamento.
+     */
+    public void afterFinish();
 
-	/**
-	 * Processa o objeto informado.
-	 * 
-	 * @param object
-	 *            O Objecto a ser processado
-	 * @return O objeto processado
-	 */
-	public T process(T object);
+    /**
+     * Invocado antes de iniciar o processamento.
+     */
+    public void beforeStart();
 
-	/**
-	 * Invocado após finalizar o processamento.
-	 */
-	public void afterFinish();
+    /**
+     * @return O resultado do processamento ou <code>null</code>.
+     */
+    public <V> V getResult();
 
-	/**
-	 * @return O resultado do processamento ou <code>null</code>.
-	 */
-	public <V> V getResult();
+    /**
+     * Processa o objeto informado.
+     * 
+     * @param object
+     *            O Objecto a ser processado
+     * @return O objeto processado
+     */
+    public T process(T object);
 }
