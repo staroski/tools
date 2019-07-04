@@ -3,7 +3,7 @@
 	<classpathentry kind="src" path="temperature"/>
 	<classpathentry kind="src" path="general"/>
 	<classpathentry kind="src" path="analysis"/>
-	<classpathentry kind="src" path="zip"/>
+	<classpathentry kind="src" path="brdocs"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
 		<attributes>
 			<attribute name="module" value="true"/>
